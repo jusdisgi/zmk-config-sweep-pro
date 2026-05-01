@@ -9,6 +9,9 @@ manifest:
     remote: zmkfirmware
     revision: ink_rotation # 修改这里，指定分支名
     import: app/west.yml
+  - name: zmk-vfx-widgets
+    remote: zmkfirmware
+    revision: main
   - name: zmk-behavior-report
     remote: nxtkb
     revision: main
