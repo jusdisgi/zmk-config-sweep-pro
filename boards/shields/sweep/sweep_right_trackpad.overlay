@@ -23,7 +23,7 @@
 	pinctrl-1 = <&i2c0_sleep>;
 	pinctrl-names = "default", "sleep";
 
-	clock-frequency = <400000>;
+	clock-frequency = <100000>;
 
 	glidepoint: glidepoint@2a {
 		compatible = "cirque,pinnacle2";
@@ -52,7 +52,7 @@
 		absolute-right-edge-scroll-enable;
 		absolute-scroll-zone = <130>;
 		absolute-scroll-divisor = <80>;
-		startup-delay-ms = <600>;
+		startup-delay-ms = <1500>;
 		primary-tap-enable;
 		glide-extend-enable;
 		invert-y;
