@@ -314,8 +314,8 @@
         //│          │          │This Layer│ Not Del  │          │   │  &       │  !       │  @       │  #       │  `       │ Delete collided with num_layer LSHIFT
             &none      &none      &none      &none      &none         &kp AMPS   &kp EXCL   &kp AT     &kp HASH   &kp GRAVE
         //╰──────────┴──────────┴──────────┼──────────┼──────────┤   ├──────────┼──────────┼──────────┴──────────┴──────────╯
-                                             &kp LBKT    &kp RBKT      &kp LBRC   &kp RBRC
-        //                                 ╰──────────┴──────────╯   ╰──────────┴──────────╯
+                                 &kp C_MUTE  &kp LBKT    &kp RBKT      &kp LBRC   &kp RBRC   &studio_unlock
+        //                      ╰──────────┴──────────┴──────────╯   ╰──────────┴──────────┴──────────╯
             >;
         };
 
