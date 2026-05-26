@@ -15,12 +15,12 @@
 #include "behaviors/report.dtsi"
 
 
-#define ABC 0
-#define NUM 1
-#define SYM 2
-#define NAV 3
-#define FUN 4
-#define UTIL 5
+#define MAC 0
+#define WIN 1
+#define RIG 2
+#define LEF 3
+#define TRI 4
+#define MOUSE 5
 
 #define SPEED_POINTER 0
 #define SPEED_SCROLL 1
@@ -152,8 +152,8 @@
 		compatible = "zmk,conditional-layers";
 		
 		tri_layer {
-			if-layers = <NAV FUN>;
-			then-layer = <UTIL>;
+			if-layers = <RIG LEF>;
+			then-layer = <TRI>;
 		};
 	};
 
@@ -164,7 +164,7 @@
 			timeout-ms = <25>;
 			require-prior-idle-ms = <125>;
 			key-positions = <2 3>;
-			layers = <ABC NUM UTIL>;
+			layers = <MAC WIN MOUSE>;
 			bindings = <&mkp RCLK>;
 		};
 
@@ -172,7 +172,7 @@
 			timeout-ms = <25>;
 			require-prior-idle-ms = <125>;
 			key-positions = <3 4>;
-			layers = <ABC NUM UTIL>;
+			layers = <MAC WIN MOUSE>;
 			bindings = <&mkp MB5>;
 		};
 
@@ -180,7 +180,7 @@
 			timeout-ms = <25>;
 			require-prior-idle-ms = <125>;
 			key-positions = <12 13>;
-			layers = <ABC NUM UTIL>;
+			layers = <MAC WIN MOUSE>;
 			bindings = <&mkp LCLK>;
 		};
 
@@ -188,7 +188,7 @@
 			timeout-ms = <25>;
 			require-prior-idle-ms = <125>;
 			key-positions = <13 14>;
-			layers = <ABC NUM UTIL>;
+			layers = <MAC WIN MOUSE>;
 			bindings = <&mkp MB4>;
 		};
 
@@ -196,7 +196,7 @@
 			timeout-ms = <25>;
 			require-prior-idle-ms = <125>;
 			key-positions = <22 23>;
-			layers = <ABC NUM UTIL>;
+			layers = <MAC WIN MOUSE>;
 			bindings = <&mkp MCLK>;
 		};
 	};
@@ -210,18 +210,18 @@
 			&kp Q   &kp W       &kp E        &kp R        &kp T        &kp Y      &kp U        &kp I        &kp O       &kp P
 			&kp A   &ht LALT S  &ht LCTRL D  &ht LGUI F   &kp G         &kp H      &ht RGUI J   &ht RCTRL K  &ht RALT L  &kp BSPC
 			&ds_z 0 Z   &sel_x LCLK X       &kp C        &kp V        &kp B         &kp N      &kp M        &kp COMMA    &kp DOT     &kp ENTER
-			&kp C_MUTE  &lt NAV TAB  &kp LSHIFT    &kp SPACE  &lt SYM TAB   &studio_unlock
+			&kp C_MUTE  &lt LEF TAB  &kp LSHIFT    &kp SPACE  &lt RIG TAB   &studio_unlock
 			>;
 			sensor-bindings = <&inc_dec_kp C_VOL_DN C_VOL_UP &inc_dec_kp C_BRI_DEC C_BRI_UP>;
 		};
 		
 		windows_layer {
-			display-name = "NUM";
+			display-name = "WIN";
 			bindings = <
 			&kp Q  &kp W       &kp E       &kp R        &kp T         &kp Y      &kp U        &kp I       &kp O       &kp P
 			&kp A  &ht LALT S  &ht LGUI D  &ht LCTRL F  &kp G         &kp H      &ht RCTRL J  &ht RGUI K  &ht RALT L  &kp BSPC
 			&ds_z 0 Z  &sel_x LCLK X       &kp C       &kp V        &kp B         &kp N      &kp M        &kp COMMA   &kp DOT     &kp ENTER
-			&kp C_MUTE  &lt NAV TAB  &kp LSHIFT     &kp SPACE &lt SYM TAB  &studio_unlock
+			&kp C_MUTE  &lt LEF TAB  &kp LSHIFT     &kp SPACE &lt RIG TAB  &studio_unlock
 			>;
 			sensor-bindings = <&inc_dec_kp C_VOL_DN C_VOL_UP &inc_dec_kp C_BRI_DEC C_BRI_UP>;
 		};
@@ -243,7 +243,7 @@
 			&kp EXCL  &kp AT    &kp HASH  &kp DLLR  &kp PRCNT    &kp CARET  &kp AMPS   &kp ASTRK  &kp GRAVE  &kp TILDE
 			&kp DQT   &kp LBKT  &kp LBRC  &kp LPAR  &default_report     &kp FSLH   &kp MINUS  &kp EQUAL  &kp COLON  &kp SEMI
 			&kp SQT   &kp RBKT  &kp RBRC  &kp RPAR  &trans   &kp BSLH   &kp UNDER  &kp PLUS   &kp PIPE   &kp QMARK
-			&kp C_MUTE &trans    &trans       &tog UTIL     &trans  &studio_unlock
+			&kp C_MUTE &trans    &trans       &tog MOUSE     &trans  &studio_unlock
 			>;
 			sensor-bindings = <&inc_dec_kp C_VOL_DN C_VOL_UP &inc_dec_kp C_BRI_DEC C_BRI_UP>;
 		};
