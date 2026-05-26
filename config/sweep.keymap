@@ -15,12 +15,12 @@
 #include "behaviors/report.dtsi"
 
 
-#define ABC 0
-#define NUM 1
-#define SYM 2
-#define NAV 3
-#define FUN 4
-#define UTL 5
+#define MAC 0
+#define WIN 1
+#define RIG 2
+#define LEF 3
+#define TRI 4
+#define MOUSE 5
 
 #define SPEED_POINTER 0
 #define SPEED_SCROLL 1
@@ -33,9 +33,6 @@
 #define CIRQUE_MODE_ABSOLUTE 1
 #define CIRQUE_MODE_TOGGLE 2
 
-// Home row mods macro
-#define HRML(k1,k2,k3,k4) &ht LGUI k1  &ht LALT k2  &ht LCTRL k3  &ht LSHFT k4
-#define HRMR(k1,k2,k3,k4) &ht RSHFT k1  &ht RCTRL k2  &ht RALT k3  &ht RGUI k4
 
 &sensors {
 	left_encoder {
@@ -128,31 +125,17 @@
 			bindings = <&drgscrl>, <&kp>;
 		};
 
-		ht: 
-		hold_tap {
+		ht: hold_tap {
 			label = "hold_tap";
-            compatible = "zmk,behavior-hold-tap";
-            #binding-cells = <2>;
-            flavor = "tap-preferred";
-            tapping-term-ms = <180>;
-            quick-tap-ms = <100>;
-            require-prior-idle-ms = <100>;
-            bindings = <&kp>, <&kp>;
-        };
-        btht: bluetooth_hold_tap {
-            compatible = "zmk,behavior-hold-tap";
-            #binding-cells = <2>;
-            flavor = "tap-preferred";
-            tapping-term-ms = <2000>;
-            require-prior-idle-ms = <100>;
-            bindings = <&btdis>, <&btsel>;
-        };
-        tdto0: tap_dance_to_layer_0 {
-            compatible = "zmk,behavior-tap-dance";
-            #binding-cells = <0>;
-            tapping-term-ms = <200>;
-            bindings = <&none>, <&to 0>;
-        };
+			compatible = "zmk,behavior-hold-tap";
+			#binding-cells = <2>;
+			flavor = "balanced";
+			tapping-term-ms = <200>;
+			quick-tap-ms = <150>;
+			require-prior-idle-ms = <125>;
+			global-quick-tap;
+			bindings = <&kp>, <&kp>;
+		};
 		mmv {
 			acceleration-exponent = <1>;// 1
 			time-to-max-speed-ms = <300>;// 40
@@ -164,35 +147,13 @@
 			delay-ms = <0>;// 10
 		};
 	};
-//End of behaviors
-
-    macros {
-        btsel: bluetooth_select {
-            compatible = "zmk,behavior-macro-one-param";
-            #binding-cells = <1>;
-            bindings
-                = <&macro_param_1to2>
-                , <&macro_tap &bt BT_SEL MACRO_PLACEHOLDER>
-                , <&macro_tap &out OUT_BLE>
-                ;
-        };
-        btdis: bluetooth_disconnect {
-            compatible = "zmk,behavior-macro-one-param";
-            #binding-cells = <1>;
-            bindings
-                = <&macro_param_1to2>
-                , <&macro_tap &bt BT_DISC MACRO_PLACEHOLDER>
-                ;
-        };
-    };
-//End of macros
 	
 	conditional_layers {
 		compatible = "zmk,conditional-layers";
 		
 		tri_layer {
-			if-layers = <NAV FUN>;
-			then-layer = <UTL>;
+			if-layers = <RIG LEF>;
+			then-layer = <TRI>;
 		};
 	};
 
@@ -238,149 +199,75 @@
 			layers = <MAC WIN MOUSE>;
 			bindings = <&mkp MCLK>;
 		};
-        combo_caps_word {
-            timeout-ms = <30>;
-            key-positions = <2 3>;
-            bindings = <&caps_word>;
-        };
-        combo_del {
-            timeout-ms = <30>;
-            key-positions = <6 7>;
-            bindings = <&kp DEL>;
-        };
-        combo_kapp {
-            timeout-ms = <30>;
-            key-positions = <0 1>;
-            bindings = <&kp K_APP>;
-        };
-        combo_navlock {
-            timeout-ms = <30>;
-            key-positions = <26 28>;
-            bindings = <&to 3>;
-        };
 	};
-//End of combos
 	
 	keymap {
 		compatible = "zmk,keymap";
-
-        default_layer {
-			display-name = "ABC";
-            bindings = <
-        //╭──────────┬──────────┬──────────┬──────────┬──────────╮   ╭──────────┬──────────┬──────────┬──────────┬──────────╮
-        //│  Q       │  W       │  F       │  P       │  B       │   │  J       │  L       │  U       │  Y       │ ' "      │
-            &kp Q      &kp W      &kp F      &lt NAV P  &kp B          &kp J      &kp L      &kp U      &kp Y      &kp SQT
-        //├──────────┼──────────┼──────────┼──────────┼──────────┤   ├──────────┼──────────┼──────────┼──────────┼──────────┤
-        //│  A       │  R       │  S       │  T       │  G       │   │  M       │  N       │  E       │  I       │ O        │
-            HRML(A,        R,         S,         T)     &kp G          &kp M      HRMR(N,        E,         I,        O)
-        //├──────────┼──────────┼──────────┼──────────┼──────────┤   ├──────────┼──────────┼──────────┼──────────┼──────────┤
-        //│  Z       │  X       │  C       │  D       │  V       │   │  K       │  H       │ , <      │ . >      │ / ?      │
-            &lt FUN Z  &kp X      &lt SYM C  &lt NUM D  &kp V          &kp K      &kp H      &kp COMMA  &kp DOT    &kp FSLH
-        //╰──────────┴──────────┴──────────┼──────────┼──────────┤   ├──────────┼──────────┼──────────┴──────────┴──────────╯
-                        		 &kp C_MUTE  &kp TAB    &kp ENTER      &kp SPACE  &kp BSPC   &studio_unlock
-        //                      ╰──────────┴──────────┴──────────╯   ╰──────────┴──────────┴──────────╯
-            >;
-			sensor-bindings = <&inc_dec_kp C_VOL_DN C_VOL_UP &inc_dec_kp C_BRI_DEC C_BRI_UP>;
-        };
 		
-        num_layer {
+		default_layer {
+			display-name = "DEF";
+			bindings = <
+			&kp Q   &kp W       &kp E        &kp R        &kp T        &kp Y      &kp U        &kp I        &kp O       &kp P
+			&kp A   &ht LALT S  &ht LCTRL D  &ht LGUI F   &kp G         &kp H      &ht RGUI J   &ht RCTRL K  &ht RALT L  &kp BSPC
+			&ds_z 0 Z   &sel_x LCLK X       &kp C        &kp V        &kp B         &kp N      &kp M        &kp COMMA    &kp DOT     &kp ENTER
+			&kp C_MUTE  &lt LEF TAB  &kp LSHIFT    &kp SPACE  &lt RIG TAB   &studio_unlock
+			>;
+			sensor-bindings = <&inc_dec_kp C_VOL_DN C_VOL_UP &inc_dec_kp C_BRI_DEC C_BRI_UP>;
+		};
+		
+		windows_layer {
+			display-name = "WIN";
+			bindings = <
+			&kp Q  &kp W       &kp E       &kp R        &kp T         &kp Y      &kp U        &kp I       &kp O       &kp P
+			&kp A  &ht LALT S  &ht LGUI D  &ht LCTRL F  &kp G         &kp H      &ht RCTRL J  &ht RGUI K  &ht RALT L  &kp BSPC
+			&ds_z 0 Z  &sel_x LCLK X       &kp C       &kp V        &kp B         &kp N      &kp M        &kp COMMA   &kp DOT     &kp ENTER
+			&kp C_MUTE  &lt LEF TAB  &kp LSHIFT     &kp SPACE &lt RIG TAB  &studio_unlock
+			>;
+			sensor-bindings = <&inc_dec_kp C_VOL_DN C_VOL_UP &inc_dec_kp C_BRI_DEC C_BRI_UP>;
+		};
+		
+		right_layer {
 			display-name = "NUM";
-            bindings = <
-        //╭──────────┬──────────┬──────────┬──────────┬──────────╮   ╭──────────┬──────────┬──────────┬──────────┬──────────╮
-        //│ 1        │ 2        │ 3        │ 4        │ 5        │   │ 6        │ 7        │ 8        │ 9        │  0       │
-            &kp N1     &kp N2     &kp N3     &kp N4     &kp N5         &kp N6     &kp N7     &kp N8     &kp N9     &kp N0
-        //├──────────┼──────────┼──────────┼──────────┼──────────┤   ├──────────┼──────────┼──────────┼──────────┼──────────┤
-        //│ DELETE   │ WINDERS  │ CAPS     │          │          │   │ / ?      │ 4        │ 5        │ 6        │  -       │
-            &kp DEL    &kp LGUI  &caps_word   &none      &none         &kp FSLH   &kp N4     &kp N5     &kp N6     &kp MINUS
-        //├──────────┼──────────┼──────────┼──────────┼──────────┤   ├──────────┼──────────┼──────────┼──────────┼──────────┤
-        //│          │          │          │This Layer│          │   │   *      │ 1        │ 2        │ 3        │  +       │
-           &kp LALT   &kp LCTRL  &kp LSHFT   &none      &none         &kp ASTRK   &kp N1     &kp N2     &kp N3     &kp PLUS
-        //╰──────────┴──────────┴──────────┼──────────┼──────────┤   ├──────────┼──────────┼──────────┴──────────┴──────────╯
-                                 &kp C_MUTE  &kp ESC    &kp EQUAL       &kp N0     &kp DOT    &studio_unlock
-        //                      ╰──────────┴──────────┴──────────╯   ╰──────────┴──────────┴──────────╯
-            >;
+			bindings = <
+			&kp N1   &kp N2    &kp N3     &kp N4   &kp N5     &kp N6  &kp N7    &kp N8     &kp N9     &kp N0
+			&kp DEL  &kp CAPS  &kp PSCRN  &kp INS  &trans     &kp LEFT  &kp DOWN   &kp UP  &kp RIGHT &trans
+			&trans   &trans    &trans     &trans   &trans     &kp HOME  &kp PG_DN  &kp PG_UP  &kp END &trans
+			&kp C_MUTE &trans   &kp ESC   &trans  &trans &studio_unlock
+			>;
 			sensor-bindings = <&inc_dec_kp C_VOL_DN C_VOL_UP &inc_dec_kp C_BRI_DEC C_BRI_UP>;
-        };
-
-        sym_layer {
+		};
+		
+		left_layer {
 			display-name = "SYM";
-            bindings = <
-        //╭──────────┬──────────┬──────────┬──────────┬──────────╮   ╭──────────┬──────────┬──────────┬──────────┬──────────╮
-        //│          │          │          │          │          │   │  ^       │  -       │  =       │  \       │  ~       │
-            &none      &none      &none     &none       &none          &kp CARET  &kp MINUS &kp EQUAL   &kp BSLH   &kp TILDE
-        //├──────────┼──────────┼──────────┼──────────┼──────────┤   ├──────────┼──────────┼──────────┼──────────┼──────────┤
-        //│          │          │          │          │          │   │  :       │  (       │  )       │  +       │  ;       │
-            &none      &none     &none      &none       &none          &kp COLON  &kp LPAR   &kp RPAR   &kp PLUS   &kp SEMI
-        //├──────────┼──────────┼──────────┼──────────┼──────────┤   ├──────────┼──────────┼──────────┼──────────┼──────────┤
-        //│          │          │This Layer│ Not Del  │          │   │  &       │  !       │  @       │  #       │  `       │ Delete collided with num_layer LSHIFT
-            &none      &none      &none      &none      &none         &kp AMPS   &kp EXCL   &kp AT     &kp HASH   &kp GRAVE
-        //╰──────────┴──────────┴──────────┼──────────┼──────────┤   ├──────────┼──────────┼──────────┴──────────┴──────────╯
-                                 &kp C_MUTE  &kp LBKT    &kp RBKT      &kp LBRC   &kp RBRC   &studio_unlock
-        //                      ╰──────────┴──────────┴──────────╯   ╰──────────┴──────────┴──────────╯
-            >;
+			bindings = <
+			&kp EXCL  &kp AT    &kp HASH  &kp DLLR  &kp PRCNT    &kp CARET  &kp AMPS   &kp ASTRK  &kp GRAVE  &kp TILDE
+			&kp DQT   &kp LBKT  &kp LBRC  &kp LPAR  &default_report     &kp FSLH   &kp MINUS  &kp EQUAL  &kp COLON  &kp SEMI
+			&kp SQT   &kp RBKT  &kp RBRC  &kp RPAR  &trans   &kp BSLH   &kp UNDER  &kp PLUS   &kp PIPE   &kp QMARK
+			&kp C_MUTE &trans    &trans       &tog MOUSE     &trans  &studio_unlock
+			>;
 			sensor-bindings = <&inc_dec_kp C_VOL_DN C_VOL_UP &inc_dec_kp C_BRI_DEC C_BRI_UP>;
-        };
-
-		nav_layer {
-			display-name = "NAV";
-            bindings = <
-        //╭──────────┬──────────┬──────────┬──────────┬──────────╮   ╭──────────┬──────────┬──────────┬──────────┬──────────╮
-        //│          │          │ Shift    │This Layer│          │   │ Page Up  │ Home     │    UP    │ End      │ Page Up  │
-           &none      &none       &kp LSHFT  &none      &none         &kp PG_UP   &kp HOME    &kp UP    &kp END    &kp PG_UP
-        //├──────────┼──────────┼──────────┼──────────┼──────────┤   ├──────────┼──────────┼──────────┼──────────┼──────────┤
-        //│          │          │          │          │          │   │ Page Down│  LEFT    │   DOWN   │  RIGHT   │ Page Down│
-           &none      &none       &none       &none     &none         &kp PG_DN   &kp LEFT   &kp DOWN   &kp RIGHT  &kp PG_DN 
-        //├──────────┼──────────┼──────────┼──────────┼──────────┤   ├──────────┼──────────┼──────────┼──────────┼──────────┤
-        //│          │          │          │          │          │   │ Alt      │ Home     │ Insert   │ End      │Dbl tap L0│
-           &mo 5      &none       &none       &none     &kp SPACE      &kp RALT   &kp RALT   &kp INS    &kp END    &tdto0
-        //╰──────────┴──────────┴──────────┼──────────┼──────────┤   ├──────────┼──────────┼──────────┴──────────┴──────────╯
-                                 &kp C_MUTE  &kp LEFT   &kp RIGHT     &kp RSHFT  &kp RCTRL  &studio_unlock
-        //                      ╰──────────┴──────────┴──────────╯   ╰──────────┴──────────┴──────────╯
-            >;
-			sensor-bindings = <&inc_dec_kp C_VOL_DN C_VOL_UP &inc_dec_kp C_BRI_DEC C_BRI_UP>;
-        };
-
-		fun_layer {
+		};
+		
+		tri_layer {
 			display-name = "FUN";
-            bindings = <
-        //╭──────────┬──────────┬──────────┬──────────┬──────────╮   ╭──────────┬──────────┬──────────┬──────────┬──────────╮
-        //│          │          │          │          │          │   │Play/Pause│          │          │          │          │
-           &kp F1      &kp F2     &kp F3     &lt NAV F4   &kp F5         &kp C_PP    &kp F9    &kp F10    &kp F11    &kp F12
-        //├──────────┼──────────┼──────────┼──────────┼──────────┤   ├──────────┼──────────┼──────────┼──────────┼──────────┤
-        //│          │          │          │          │          │   │ Volume + │          │          │          │          │
-           &kp LGUI   &kp LALT   &kp LCTRL  &kp LSHFT   &none        &kp C_VOL_UP  &kp F5    &kp F6     &kp F7     &kp F8
-        //├──────────┼──────────┼──────────┼──────────┼──────────┤   ├──────────┼──────────┼──────────┼──────────┼──────────┤
-        //│This Layer│  Undo    │  Cut     │  Copy    │  Paste   │   │ Volume - │          │          │          │          │
-           &none      &kp LC(Z)  &kp LC(X)  &kp LC(C)   &kp LC(V)    &kp C_VOL_DN  &kp F1    &kp F2     &kp F3     &kp F4   
-        //╰──────────┴──────────┴──────────┼──────────┼──────────┤   ├──────────┼──────────┼──────────┴──────────┴──────────╯
-                                 &kp C_MUTE   &none     &kp ESC       &kp C_MUTE  &kp PSCRN  &studio_unlock
-        //                      ╰──────────┴──────────┴──────────╯   ╰──────────┴──────────┴──────────╯
-            >;
+			bindings = <
+			&kp F1  &kp F2   &kp F3   &kp F4   &bt BT_SEL 0    &bt BT_SEL 2  &out OUT_TOG   &tog WIN  &kp C_MUTE    &kp C_PREV
+			&kp F5  &kp F6   &kp F7   &kp F8   &bt BT_SEL 1    &bt BT_SEL 3  &kp C_BRI_UP   &studio_unlock    &kp C_VOL_UP  &kp C_PP
+			&kp F9  &kp F10  &kp F11  &kp F12  &bt BT_CLR      &bt BT_SEL 4  &kp C_BRI_DEC  &soft_off     &kp C_VOL_DN  &kp C_NEXT
+			&kp C_MUTE  &trans   &trans          &trans        &trans  &studio_unlock
+			>;
 			sensor-bindings = <&inc_dec_kp C_VOL_DN C_VOL_UP &inc_dec_kp C_BRI_DEC C_BRI_UP>;
-        };
-
-        util_layer {
-			display-name = "UTL";
-            bindings = <
-        //╭──────────┬──────────┬──────────┬──────────┬──────────╮   ╭──────────┬──────────────┬──────────────┬──────────────┬──────────────╮
-        //│          │          │          │This Layer│          │   │          │ Guest        │              │              │              │
-           &none      &none       &none       &none     &none          &none      &btht 4 4      &none           &none         &none
-        //├──────────┼──────────┼──────────┼──────────┼──────────┤   ├──────────┼──────────────┼──────────────┼──────────────┼──────────────┤
-        //│          │          │          │          │          │   │          │ Big Lappy    │ Work Lappy   │ Tiny Lappy   │   Phone      │
-           &none      &none       &none       &none     &none          &none      &btht 0 0      &btht 1 1      &btht 2 2      &btht 3 3
-        //├──────────┼──────────┼──────────┼──────────┼──────────┤   ├──────────┼──────────────┼──────────────┼──────────────┼──────────────┤
-        //│This Layer│          │          │          │          │   │          │ USB/BLE      │              │              │Clear Profile │
-           &none      &none       &none       &none     &none          &none      &out OUT_TOG    &none           &none        &bt BT_CLR
-        //╰──────────┴──────────┴──────────┼──────────┼──────────┤   ├──────────┼──────────────┼──────────────┴──────────────┴──────────────╯
-                                 &kp C_MUTE   &none     &none         &bt BT_PRV &bt BT_NXT &studio_unlock
-        //                      ╰──────────┴──────────┴──────────╯   ╰──────────┴──────────┴──────────╯
-            >;
-			sensor-bindings = <&inc_dec_kp C_VOL_DN C_VOL_UP &inc_dec_kp C_BRI_DEC C_BRI_UP>;
-        };
-
+		};
+	
+		mouse {
+			display-name = "MOUSE";
+			bindings = <
+			&tog MOUSE  &mkp MB4  &mkp MCLK  &mkp MB5   &trans      &msc SCRL_LEFT     &msc SCRL_DOWN    &msc SCRL_UP     &msc SCRL_RIGHT    &tog MOUSE
+			&trans      &trans    &trans     &trans     &trans      &mmv MOVE_LEFT     &mmv MOVE_DOWN    &mmv MOVE_UP     &mmv MOVE_RIGHT    &trans
+			&ptr_spd SPEED_POINTER SPEED_FINE_PREV  &ptr_spd SPEED_POINTER SPEED_FINE_NEXT  &ptr_spd SPEED_SCROLL SPEED_FINE_PREV  &ptr_spd SPEED_SCROLL SPEED_FINE_NEXT  &crq_mode CIRQUE_MODE_TOGGLE        &trans     &mkp MB4  &mkp MCLK  &mkp MB5  &trans
+			&ptr_spd SPEED_POINTER SPEED_RESET &kp SPACE  &kp LSHIFT  &mkp LCLK  &mkp RCLK &ptr_spd SPEED_SCROLL SPEED_RESET
+			>;
+			sensor-bindings = <&enc_ptr_spd &enc_scrl_spd>;
+		};
 	};
-//End of Keymap
-
-
-
 };
