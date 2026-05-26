@@ -5,6 +5,9 @@
 # Ferris Sweep Pro (34-Key Split Keyboard)
 
 A high-performance, ultra-thin split ergonomic keyboard designed for enthusiasts and power users. Featuring ZMK Studio support, magnetic tenting, and a premium low-profile aesthetic.
+
+This is Hunter Cook's fork for his own personal keyboard. Feel free to peruse his keymaps or whatever but otherwise it's just like the respo it's forked from...
+
 ![poster](images/poster.png)
 
 ## Firmware Development
