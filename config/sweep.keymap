@@ -20,7 +20,7 @@
 #define SYM 2
 #define NAV 3
 #define FUN 4
-#define UTIL 5
+#define UTL 5
 
 #define SPEED_POINTER 0
 #define SPEED_SCROLL 1
@@ -192,7 +192,7 @@
 		
 		tri_layer {
 			if-layers = <NAV FUN>;
-			then-layer = <UTIL>;
+			then-layer = <UTL>;
 		};
 	};
 
@@ -269,13 +269,13 @@
             bindings = <
         //╭──────────┬──────────┬──────────┬──────────┬──────────╮   ╭──────────┬──────────┬──────────┬──────────┬──────────╮
         //│  Q       │  W       │  F       │  P       │  B       │   │  J       │  L       │  U       │  Y       │ ' "      │
-            &kp Q      &kp W      &kp F      &lt 3 P    &kp B          &kp J      &kp L      &kp U      &kp Y      &kp SQT
+            &kp Q      &kp W      &kp F      &lt NAV P  &kp B          &kp J      &kp L      &kp U      &kp Y      &kp SQT
         //├──────────┼──────────┼──────────┼──────────┼──────────┤   ├──────────┼──────────┼──────────┼──────────┼──────────┤
         //│  A       │  R       │  S       │  T       │  G       │   │  M       │  N       │  E       │  I       │ O        │
             HRML(A,        R,         S,         T)     &kp G          &kp M      HRMR(N,        E,         I,        O)
         //├──────────┼──────────┼──────────┼──────────┼──────────┤   ├──────────┼──────────┼──────────┼──────────┼──────────┤
         //│  Z       │  X       │  C       │  D       │  V       │   │  K       │  H       │ , <      │ . >      │ / ?      │
-            &lt 4 Z    &kp X      &lt 2 C    &lt 1 D    &kp V          &kp K      &kp H      &kp COMMA  &kp DOT    &kp FSLH
+            &lt FUN Z  &kp X      &lt SYM C  &lt NUM D  &kp V          &kp K      &kp H      &kp COMMA  &kp DOT    &kp FSLH
         //╰──────────┴──────────┴──────────┼──────────┼──────────┤   ├──────────┼──────────┼──────────┴──────────┴──────────╯
                         		 &kp C_MUTE  &kp TAB    &kp ENTER      &kp SPACE  &kp BSPC   &studio_unlock
         //                      ╰──────────┴──────────┴──────────╯   ╰──────────┴──────────┴──────────╯
@@ -299,6 +299,7 @@
                                  &kp C_MUTE  &kp ESC    &kp EQUAL       &kp N0     &kp DOT    &studio_unlock
         //                      ╰──────────┴──────────┴──────────╯   ╰──────────┴──────────┴──────────╯
             >;
+			sensor-bindings = <&inc_dec_kp C_VOL_DN C_VOL_UP &inc_dec_kp C_BRI_DEC C_BRI_UP>;
         };
 
         sym_layer {
@@ -317,6 +318,7 @@
                                  &kp C_MUTE  &kp LBKT    &kp RBKT      &kp LBRC   &kp RBRC   &studio_unlock
         //                      ╰──────────┴──────────┴──────────╯   ╰──────────┴──────────┴──────────╯
             >;
+			sensor-bindings = <&inc_dec_kp C_VOL_DN C_VOL_UP &inc_dec_kp C_BRI_DEC C_BRI_UP>;
         };
 
 		nav_layer {
@@ -343,7 +345,7 @@
             bindings = <
         //╭──────────┬──────────┬──────────┬──────────┬──────────╮   ╭──────────┬──────────┬──────────┬──────────┬──────────╮
         //│          │          │          │          │          │   │Play/Pause│          │          │          │          │
-           &kp F1      &kp F2     &kp F3     &lt 3 F4   &kp F5         &kp C_PP    &kp F9    &kp F10    &kp F11    &kp F12
+           &kp F1      &kp F2     &kp F3     &lt NAV F4   &kp F5         &kp C_PP    &kp F9    &kp F10    &kp F11    &kp F12
         //├──────────┼──────────┼──────────┼──────────┼──────────┤   ├──────────┼──────────┼──────────┼──────────┼──────────┤
         //│          │          │          │          │          │   │ Volume + │          │          │          │          │
            &kp LGUI   &kp LALT   &kp LCTRL  &kp LSHFT   &none        &kp C_VOL_UP  &kp F5    &kp F6     &kp F7     &kp F8
@@ -358,7 +360,7 @@
         };
 
         util_layer {
-			display-name = "UTIL";
+			display-name = "UTL";
             bindings = <
         //╭──────────┬──────────┬──────────┬──────────┬──────────╮   ╭──────────┬──────────────┬──────────────┬──────────────┬──────────────╮
         //│          │          │          │This Layer│          │   │          │ Guest        │              │              │              │
