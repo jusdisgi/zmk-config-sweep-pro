@@ -307,7 +307,7 @@
            &none      &none       &none       &none     &none         &kp PG_DN   &kp LEFT   &kp DOWN   &kp RIGHT  &kp PG_DN 
         //├──────────┼──────────┼──────────┼──────────┼──────────┤   ├──────────┼──────────┼──────────┼──────────┼──────────┤
         //│          │          │          │          │          │   │ Alt      │ Home     │ Insert   │ End      │Dbl tap L0│
-           &mo 5      &none       &none       &none     &kp SPACE      &kp RALT   &kp RALT   &kp INS    &kp END    &tdto0
+           &mo 5      &none       &none       &none     &kp SPACE      &kp RALT   &kp HOME   &kp INS    &kp END    &tdto0
         //╰──────────┴──────────┴──────────┼──────────┼──────────┤   ├──────────┼──────────┼──────────┴──────────┴──────────╯
                                  &kp C_MUTE  &kp LEFT   &kp RIGHT     &kp RSHFT  &kp RCTRL  &kp PSCRN
         //                      ╰──────────┴──────────┴──────────╯   ╰──────────┴──────────┴──────────╯
