@@ -20,7 +20,7 @@
 #define SYM 2
 #define NAV 3
 #define FUN 4
-#define UTL 5
+#define UTIL 5
 
 #define SPEED_POINTER 0
 #define SPEED_SCROLL 1
@@ -191,7 +191,7 @@
 		
 		tri_layer {
 			if-layers = <NAV FUN>;
-			then-layer = <UTL>;
+			then-layer = <UTIL>;
 		};
 	};
 
@@ -335,7 +335,7 @@
         };
 
         util_layer {
-			display-name = "UTL";
+			display-name = "UTIL";
             bindings = <
         //╭──────────┬──────────┬──────────┬──────────┬──────────╮   ╭──────────┬──────────────┬──────────────┬──────────────┬──────────────╮
         //│          │          │          │This Layer│          │   │          │ Guest        │              │              │              │
