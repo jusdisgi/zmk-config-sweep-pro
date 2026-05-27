@@ -202,7 +202,7 @@
 			timeout-ms = <25>;
 			require-prior-idle-ms = <125>;
 			key-positions = <2 3>;
-			layers = <ABC>;
+			layers = <ABC NUM NAV>;
 			bindings = <&mkp RCLK>;
 		};
 
@@ -247,10 +247,10 @@
             key-positions = <6 7>;
             bindings = <&kp DEL>;
         };
-        combo_kapp {
+        combo_esc {
             timeout-ms = <30>;
             key-positions = <0 1>;
-            bindings = <&kp K_APP>;
+            bindings = <&kp ESC>;
         };
         combo_navlock {
             timeout-ms = <30>;
