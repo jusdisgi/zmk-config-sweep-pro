@@ -255,7 +255,7 @@
                         		 &kp C_MUTE  &kp TAB    &kp ENTER      &kp SPACE  &kp BSPC   &kp PSCRN
         //                      ╰──────────┴──────────┴──────────╯   ╰──────────┴──────────┴──────────╯
             >;
-			sensor-bindings = <&inc_dec_kp C_VOL_DN C_VOL_UP &inc_dec_kp C_BRI_DEC C_BRI_UP>;
+			sensor-bindings = <&inc_dec_kp C_VOL_DN C_VOL_UP &inc_dec_kp C_RW C_FF>;
         };
 		
         num_layer {
@@ -312,7 +312,7 @@
                                  &kp C_MUTE  &kp LEFT   &kp RIGHT     &kp RSHFT  &kp RCTRL  &kp PSCRN
         //                      ╰──────────┴──────────┴──────────╯   ╰──────────┴──────────┴──────────╯
             >;
-			sensor-bindings = <&inc_dec_kp C_VOL_DN C_VOL_UP &inc_dec_kp C_BRI_DEC C_BRI_UP>;
+			sensor-bindings = <&inc_dec_kp C_VOL_DN C_VOL_UP &inc_dec_kp C_RW C_FF>;
         };
 
 		fun_layer {
